@@ -116,7 +116,9 @@ paths:
         '200':
           description: All accounts retrieved successully
           schema:
-            $ref: '#/definitions/accounts'
+            type: array
+            items:
+             $ref: '#/definitions/account'
         '400':
           description: Invalid Fields
         '500':
@@ -133,14 +135,16 @@ paths:
       parameters:
         - in: path
           name: accountID
-          description: ID of an account
+          description: account's ID
           required: true
           type: string
       responses:
         '200':
           description: All transactions retrieved successully
           schema:
-            $ref: '#/definitions/transactions'
+            type: array
+            items :
+              $ref: '#/definitions/transactions'
         '400':
           description: Invalid Fields
         '500':
@@ -157,12 +161,12 @@ paths:
       parameters:
         - in: path
           name: accountID
-          description: ID of an account
+          description: account's ID
           required: true
           type: string
         - in: path
           name: transactionID
-          description: ID of a transaction
+          description: transaction's ID
           required: true
           type: string
         - in: body
@@ -192,12 +196,12 @@ paths:
       parameters:
         - in: path
           name: accountID
-          description: ID of an account
+          description: account's ID
           required: true
           type: string
         - in: path
           name: transactionID
-          description: ID of a transaction
+          description: transaction's ID
           required: true
           type: string
         - in: body
@@ -227,17 +231,17 @@ paths:
       parameters:
         - in: path
           name: accountID
-          description: ID of an account
+          description: account's ID
           required: true
           type: string
         - in: path
           name: transactionID
-          description: ID of a transaction
+          description: transaction's ID
           required: true
           type: string
         - in: path
           name: noteID
-          description: ID of a note
+          description: note's ID
           required: true
           type: string
         - in: body
@@ -250,7 +254,7 @@ paths:
         '200':
           description: All transactions retrieved successully
           schema:
-            $ref: '#/definitions/transactionsNoteModif'
+            $ref: '#/definitions/transacNoteModif'
         '400':
           description: Invalid Fields
         '500':
@@ -265,17 +269,17 @@ paths:
       parameters:
         - in: path
           name: accountID
-          description: ID of an account
+          description: account's ID
           required: true
           type: string
         - in: path
           name: transactionID
-          description: ID of a transaction
+          description: transaction's ID
           required: true
           type: string
         - in: path
           name: noteID
-          description: ID of a note
+          description: note's ID
           required: true
           type: string
       responses:
@@ -344,59 +348,58 @@ definitions:
     properties:
       userName:
         type: string
-  accounts:
+ 
+  account:
       type: object
       properties:
-        account.${ID}:
+        id:
           type: string
-          description: account ID
+          description: account's ID
         accountName:
           type: string
-          description: Name of the accounz
+          description: account's name
         currentBalance:
           type: number
-          description: balance of the account
-
+          description: account's balance
   transactions:
       type: object
       properties:
         transactionID: 
           type: string
-          description: transaction ID
+          description: transaction's ID
         transactionType:
           type: string
-          description: type of transaction
+          description: transaction's type
         date:
           type: string
-          description: transaction's dat3
+          description: transaction's date
         description:
           type: string
           description: transaction's description
-        amount:
-          type: number
-          description: transaction amout
         balance:
           type: number
           description: balance available
+        amount:
+          type: number
+          description: transaction's amout
         category:
           type: string
-          description: name of the category
+          description: category's name
         note: 
           type: string
-          description: note made by the user
-
+          description: transaction's note 
   transacCat:
     type: object
     properties:
       category:
         type: string
-
   transacNote:
     type: object
     properties:
       note:
         type: string
-        
+      noteID:
+        type: string  
   transacNewNote:
     type: object
     properties:
@@ -404,8 +407,7 @@ definitions:
         type: string
       noteID:
         type: string   
-  
-  transactionsNoteModif:
+  transacNoteModif:
     type: object
     properties:
       note:
